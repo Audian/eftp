@@ -104,8 +104,12 @@ defmodule Eftp.Client do
   @spec fetch({:ok, pid :: Pid.t()}, remote_files :: list(), local_save_path :: String.t()) ::
           {:ok, list()} | {:error, term()}
   def fetch({:ok, pid}, remote_files, local_save_path) when is_list(remote_files) do
-    remote_files
-    |> Enum.each(fn file -> fetch({:ok, pid}, file, local_save_path) end)
+    fetched_files =
+      remote_files
+      |> Enum.map(fn file -> fetch({:ok, pid}, file, local_save_path) end)
+      |> Enum.map(fn {:ok, filename} -> filename end)
+
+    {:ok, fetched_files}
   end
 
   @spec fetch({:error, reason :: term()}, _remote_files :: list(), _local_save_path :: String.t()) ::
