@@ -51,7 +51,7 @@ defmodule Eftp.MixProject do
     [
       {:ex_doc, "~> 0.19", only: :dev, runtime: false},
       {:credo, "~> 1.0", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 0.5.1"}
+      {:dialyxir, "~> 0.5.1", only: [:dev]}
     ]
   end
 end
