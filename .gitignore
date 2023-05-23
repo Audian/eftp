@@ -27,3 +27,7 @@ eftp-*.tar
 
 # Ignore temp files
 *.tmp
+*.old
+
+# Ignore mac files
+.DS_Store

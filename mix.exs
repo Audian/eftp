@@ -1,4 +1,6 @@
 #
+# Copyright 2023, Audian, Inc.
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
@@ -24,8 +26,8 @@ defmodule Eftp.MixProject do
   def project do
     [
       app: :eftp,
-      version: "0.1.0",
-      elixir: "~> 1.10",
+      version: "0.2.0",
+      elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       name: "Eftp",
@@ -42,16 +44,16 @@ defmodule Eftp.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger]
+      extra_applications: [:logger, :ftp]
     ]
   end
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_doc, "~> 0.19", only: :dev, runtime: false},
-      {:credo, "~> 1.0", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 0.5.1", only: [:dev]}
+      {:ex_doc,   "~> 0.29",  [only: :dev, runtime: false]},
+      {:credo,    "~> 1.7",   [only: :dev, runtime: false]},
+      {:dialyxir, "~> 1.3",   [only: :dev, runtime: false]}
     ]
   end
 end
