@@ -26,8 +26,8 @@ defmodule Eftp.MixProject do
   def project do
     [
       app: :eftp,
-      version: "0.2.0",
-      elixir: "~> 1.12",
+      version: "0.3.0",
+      elixir: "~> 1.16",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       name: "Eftp",
@@ -51,9 +51,11 @@ defmodule Eftp.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_doc,   "~> 0.29",  [only: :dev, runtime: false]},
-      {:credo,    "~> 1.7",   [only: :dev, runtime: false]},
-      {:dialyxir, "~> 1.3",   [only: :dev, runtime: false]}
+      {:ex_doc,     "~> 0.38",    [only: :dev, runtime: false]},
+      {:credo,      "~> 1.7",     [only: :dev, runtime: false]},
+      {:dialyxir,   "~> 1.4",     [only: :dev, runtime: false]},
+      {:sobelow,    "~> 0.14.0",  [only: :dev, runtime: false]},
+      {:mix_audit,  "~> 2.1",     [only: :dev, runtime: false]}
     ]
   end
 end
