@@ -59,8 +59,8 @@ defmodule Eftp do
     port  :: integer() | bitstring() | nil
   ) :: {:ok, pid()} | {:error, term()}
   def connect(host, port) when is_bitstring(host) and is_integer(port) do
-    host = '#{host}'
-    opts = [{'port', '#{port}'}]
+    host = ~c(#{host})
+    opts = [{~c(port), ~c(#{port})}]
 
     case :ftp.open(host, opts) do
       {:ok, pid}  -> {:ok, pid}
@@ -96,8 +96,9 @@ defmodule Eftp do
     password  :: bitstring()
   ) :: {:ok, pid()} | {:error, term()}
   def authenticate({:ok, pid}, username, password) when is_bitstring(username) and
-                                                        is_bitstring(password) do
-    case :ftp.user(pid, '#{username}', '#{password}') do
+                                                        is_bitstring(password)
+  do
+      case :ftp.user(pid, ~c(#{username}), ~c(#{password})) do
       :ok -> {:ok, pid}
       {:error, :euser}  -> {:error, :authentication_failure}
       {:error, reason}  -> {:error, reason}
@@ -131,10 +132,10 @@ defmodule Eftp do
         true  -> "#{local_path}/#{filename}-#{unixtime()}"
       end
 
-    :ftp.cd(pid, '#{dirname}')
+    :ftp.cd(pid, ~c(#{dirname}))
     :ftp.type(pid, xfer_type)
 
-    case :ftp.recv(pid, '#{filename}', '#{save_name}') do
+    case :ftp.recv(pid, ~c(#{filename}), ~c(#{save_name})) do
       :ok               -> {:ok, save_name}
       {:error, reason}  -> {:error, reason}
     end
@@ -161,9 +162,9 @@ defmodule Eftp do
   @spec list(
     {:ok, pid   :: pid()} | {:error, term()},
     remote_path :: bitstring()
-  ) :: {:ok, list()} | {:error, term()}
+  ) :: {:ok, pid(), list()} | {:error, term()}
   def list({:ok, pid}, remote_path) when is_bitstring(remote_path) do
-    case :ftp.nlist(pid, '#{remote_path}') do
+    case :ftp.nlist(pid, ~c(#{remote_path})) do
       {:error, reason}  -> {:error, reason}
       {:ok, filenames}  ->
         files =
@@ -172,7 +173,7 @@ defmodule Eftp do
           |> String.split("\r\n")
           |> Enum.reject(fn file -> is_nil(file) or file == "" end)
 
-        {:ok, files}
+        {:ok, pid, files}
     end
   end
   def list({:ok, _}, _), do: {:error, :invalid_pathname}
