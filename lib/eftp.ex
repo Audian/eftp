@@ -60,7 +60,7 @@ defmodule Eftp do
   ) :: {:ok, pid()} | {:error, term()}
   def connect(host, port) when is_bitstring(host) and is_integer(port) do
     host = ~c(#{host})
-    opts = [{~c(port), ~c(#{port})}]
+    opts = [{:port, port}]
 
     case :ftp.open(host, opts) do
       {:ok, pid}  -> {:ok, pid}
