@@ -54,7 +54,7 @@ defmodule Eftp.MixProject do
       {:ex_doc,     "~> 0.38",    [only: :dev, runtime: false]},
       {:credo,      "~> 1.7",     [only: :dev, runtime: false]},
       {:dialyxir,   "~> 1.4",     [only: :dev, runtime: false]},
-      {:sobelow,    "~> 0.14.0",  [only: :dev, runtime: false]},
+      {:sobelow,    "~> 0.15.0",  [only: :dev, runtime: false]},
       {:mix_audit,  "~> 2.1",     [only: :dev, runtime: false]}
     ]
   end
